@@ -1,4 +1,4 @@
-export const WORDS = [
+export const WORDS: string[] = [
   'AGENT',
   'WORLD',
   'ABOUT',
@@ -49,4 +49,4 @@ export const WORDS = [
   'HONEY',
   'FLAKE',
   'SOUND',
-];
+]; 

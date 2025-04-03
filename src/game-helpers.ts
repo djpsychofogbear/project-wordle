@@ -3,7 +3,14 @@
  * solving algorithm!
  */
 
-export function checkGuess(guess, answer) {
+export type LetterStatus = 'correct' | 'misplaced' | 'incorrect';
+
+export type GuessResult = {
+  letter: string;
+  status: LetterStatus | "";
+}
+
+export function checkGuess(guess: string | null, answer: string): GuessResult[] | null {
   // This constant is a placeholder that indicates we've successfully
   // dealt with this character (it's correct, or misplaced).
   const SOLVED_CHAR = '✓';
@@ -15,7 +22,7 @@ export function checkGuess(guess, answer) {
   const guessChars = guess.toUpperCase().split('');
   const answerChars = answer.split('');
 
-  const result = [];
+  const result: GuessResult[] = [];
 
   // Step 1: Look for correct letters.
   for (let i = 0; i < guessChars.length; i++) {
@@ -36,7 +43,7 @@ export function checkGuess(guess, answer) {
       continue;
     }
 
-    let status = 'incorrect';
+    let status: LetterStatus = 'incorrect';
     const misplacedIndex = answerChars.findIndex(
       (char) => char === guessChars[i]
     );
@@ -52,4 +59,4 @@ export function checkGuess(guess, answer) {
   }
 
   return result;
-}
+} 

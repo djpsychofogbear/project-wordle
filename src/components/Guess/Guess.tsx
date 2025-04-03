@@ -1,8 +1,11 @@
-import React from "react"
 import { range } from "../../utils"
+import { GuessResult } from "../../game-helpers"
 
+interface GuessProps {
+  guessCharArr: GuessResult[];
+}
 
-function Guess({ guessCharArr }) {
+function Guess({ guessCharArr }: GuessProps): React.ReactElement {
   return (
     <p className="guess">
       {Array.isArray(guessCharArr) && !guessCharArr.some(item => item.letter === "")
@@ -18,4 +21,4 @@ function Guess({ guessCharArr }) {
   )
 }
 
-export default Guess
+export default Guess 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Header() {
+function Header(): JSX.Element {
   return (
     <header>
       <h1>Word Game</h1>
@@ -8,4 +8,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default Header; 

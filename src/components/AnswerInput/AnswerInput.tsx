@@ -1,18 +1,19 @@
 import React from "react"
 
-function AnswerInput({ logGuess, disabled }) {
-  const [guess, setGuess] = React.useState("")
+interface AnswerInputProps {
+  value: string;
+  logGuess: (guess: string) => void;
+  inputGuess: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  disabled: boolean;
+}
 
-  const handleGuessInput = event => {
-    setGuess(event.target.value.toUpperCase())
-  }
-  const handleSubmit = e => {
+function AnswerInput({ value, logGuess, inputGuess, disabled }: AnswerInputProps): React.ReactElement {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
-    console.log({ guess })
-    logGuess(guess)
-    setGuess("")
+    logGuess(value)
   }
-  const handleKeyDown = e => {
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>): void => {
     const validKeys = /^[A-Za-z]$/ // Allow only letters
     const isSpecialKey = [
       "Enter",
@@ -27,7 +28,8 @@ function AnswerInput({ logGuess, disabled }) {
       e.preventDefault()
     }
   }
-  const handlePaste = e => {
+
+  const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>): void => {
     e.preventDefault()
     const pastedData = e.clipboardData.getData("text")
     // Remove invalid characters and take the first 5 valid letters
@@ -35,7 +37,7 @@ function AnswerInput({ logGuess, disabled }) {
       .replace(/[^A-Za-z]/g, "")
       .slice(0, 5)
       .toUpperCase()
-    setGuess(scrubbedData)
+    inputGuess({ target: { value: scrubbedData } } as React.ChangeEvent<HTMLInputElement>)
   }
 
   return (
@@ -44,8 +46,8 @@ function AnswerInput({ logGuess, disabled }) {
       <input
         id="guess-input"
         type="text"
-        value={guess}
-        onChange={handleGuessInput}
+        value={value}
+        onChange={inputGuess}
         onKeyDown={handleKeyDown}
         onPaste={handlePaste}
         pattern="^.{5,5}$"
@@ -58,4 +60,4 @@ function AnswerInput({ logGuess, disabled }) {
   )
 }
 
-export default AnswerInput
+export default AnswerInput 
